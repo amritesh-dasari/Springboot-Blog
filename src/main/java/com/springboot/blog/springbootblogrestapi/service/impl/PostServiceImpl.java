@@ -6,6 +6,7 @@ import com.springboot.blog.springbootblogrestapi.payload.PostDto;
 import com.springboot.blog.springbootblogrestapi.payload.PostResponse;
 import com.springboot.blog.springbootblogrestapi.repository.PostRepository;
 import com.springboot.blog.springbootblogrestapi.service.PostService;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,9 +20,11 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository;
+    private ModelMapper mapper;
 
-    public PostServiceImpl(PostRepository postRepository) {
+    public PostServiceImpl(PostRepository postRepository, ModelMapper mapper) {
         this.postRepository = postRepository;
+        this.mapper = mapper;
     }
 
     @Override
@@ -79,19 +82,21 @@ public class PostServiceImpl implements PostService {
     }
 
     private PostDto mapToDTO(Post post){
-        PostDto postdto = new PostDto();
-        postdto.setId(post.getId());
-        postdto.setTitle(post.getTitle());
-        postdto.setDescription(post.getDescription());
-        postdto.setContent(post.getContent());
+        PostDto postdto = mapper.map(post, PostDto.class);
+//        PostDto postdto = new PostDto();
+//        postdto.setId(post.getId());
+//        postdto.setTitle(post.getTitle());
+//        postdto.setDescription(post.getDescription());
+//        postdto.setContent(post.getContent());
         return postdto;
     }
 
     private Post mapToEntity(PostDto postdto){
-        Post post = new Post();
-        post.setTitle(postdto.getTitle());
-        post.setDescription(postdto.getDescription());
-        post.setContent(postdto.getContent());
+        Post post = mapper.map(postdto, Post.class);
+//        Post post = new Post();
+//        post.setTitle(postdto.getTitle());
+//        post.setDescription(postdto.getDescription());
+//        post.setContent(postdto.getContent());
         return post;
     }
 }
