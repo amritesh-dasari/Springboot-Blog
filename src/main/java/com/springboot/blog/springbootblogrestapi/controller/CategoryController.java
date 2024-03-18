@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
@@ -27,5 +29,9 @@ public class CategoryController {
     public ResponseEntity<CategoryDto> getCategory(@PathVariable(name = "id") Long categoryId){
         CategoryDto categoryDto = categoryService.getCategory(categoryId);
         return ResponseEntity.ok(categoryDto);
+    }
+    @GetMapping
+    public ResponseEntity<List<CategoryDto>> getCategories(){
+        return ResponseEntity.ok(categoryService.getAllCategories());
     }
 }
