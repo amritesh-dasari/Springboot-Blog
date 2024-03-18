@@ -62,23 +62,4 @@ public class SecurityConfig {
         httpSecurity.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
-
-//    @Bean
-//    public UserDetailsService userDetailsService(){
-//        UserDetails admin = User
-//                .builder()
-//                .username("admin")
-//                .password(passwordEncoder().encode("admin"))
-//                .roles("ADMIN")
-//                .build();
-//
-//        UserDetails user123 = User
-//                .builder()
-//                .username("user123")
-//                .password(passwordEncoder().encode("user123"))
-//                .roles("USER")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(admin, user123);
-//    }
 }
